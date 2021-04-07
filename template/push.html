@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport">
+        <title>Push Data</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    </head>
+    <body>
+        <form>
+            <input type="text" v-model='weather' placeholder="weather">
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+        <script>
+            var app = new Vue({
+                el:"#app",
+                data : {
+                    weather:'',
+                },
+                methods: {
+                    pull(){
+                        axios({
+                            method: 'post',
+                            url: 'api/push',
+                            data: {
+                                weather: this.weather,
+                            }
+                        }).then(response=>{
+                            console.log("post over!");
+                        });
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

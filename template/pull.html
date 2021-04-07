@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport">
+        <title>Push Data</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>Pull Weather Data</h1>
+            <ul v-for="weather in weathers">
+                <li>[[ weather.station ]]</li>
+            </ul>
+        </div>
+
+        <script>
+            var app = new Vue({
+                el:"#app",
+                delimiters:["[[","]]"],
+                data : {
+                    weathers:{},
+                    title:'',
+                },
+                mounted:function(){
+                    this.pull();
+                },
+                methods: {
+                    pull(){
+                        axios({
+                            method: 'get',
+                            url: 'api/pull',
+                        }).then(response=>{
+                            this.weathers=response.data;
+                            this.title = 'Weather Station'
+                        }), err => {
+                            console.log(err);
+                        };
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
